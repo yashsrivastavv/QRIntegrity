@@ -1,6 +1,5 @@
 # BlockScan
 
-# CCTNS In GD & FIR
 
 <!-- [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
@@ -15,7 +14,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/yashsrivastavv/BlockScan">
-    <img src="https://github.com/yashsrivastavv/BlockScan/img/i1.jpg" alt="Logo" width="500" height="100">
+    <img src="https://github.com/yashsrivastavv/BlockScan/blob/main/img/i1.jpg" alt="Logo" width="500" height="100">
   </a>
 
   <h3 align="center">BlockScan</h3>
@@ -98,3 +97,7 @@ To get a local copy up and running follow these simple steps.
    ```sh
    pip install -r requirements.txt
    ```
+
+
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://www.linkedin.com/in/yash-srivastava-/
