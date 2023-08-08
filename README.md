@@ -77,8 +77,8 @@ This system presents an innovative web application designed to combat the prolif
 ### Built Using
 
 * [Python](https://www.python.org/)
-* [Solidity](https://docs.soliditylang.org/en/v0.8.21/).
-* [Remix IDE](https://remix.ethereum.org/).
+* [Solidity](https://docs.soliditylang.org/en/v0.8.21/)
+* [Remix IDE](https://remix.ethereum.org/)
 
 
 <!-- GETTING STARTED -->
