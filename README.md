@@ -14,7 +14,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/yashsrivastavv/BlockScan">
-    <img src="https://github.com/yashsrivastavv/BlockScan/blob/main/img/i1.jpg" alt="Logo" width="500" height="100">
+    <img src="https://github.com/yashsrivastavv/BlockScan/blob/main/img/i1.jpg" alt="Logo" width="350" height="350">
   </a>
 
   <h3 align="center">BlockScan</h3>
