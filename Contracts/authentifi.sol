@@ -1,192 +1,173 @@
-pragma solidity ^0.4.22;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 pragma experimental ABIEncoderV2;
 
 contract Authentifi {
-    address owner;
-    struct codeObj {
-        uint status;
+    address public owner;
+
+    constructor() {
+        owner = msg.sender;
+    }
+
+    struct Code {
+        uint256 status;
         string brand;
         string model;
         string description;
-        string manufactuerName;
-        string manufactuerLocation;
-        string manufactuerTimestamp;
+        string manufacturerName;
+        string manufacturerLocation;
+        string manufacturerTimestamp;
         string retailer;
         string[] customers;
     }
-    struct customerObj {
+
+    struct Customer {
         string name;
         string phone;
-        string[] code;
+        string[] codes;
         bool isValue;
     }
-    struct retailerObj {
+
+    struct Retailer {
         string name;
         string location;
     }
 
-    mapping (string => codeObj) codeArr;
-    mapping (string => customerObj) customerArr;
-    mapping (string => retailerObj) retailerArr;
+    mapping (string => Code) public codeArr;
+    mapping (string => Customer) public customerArr;
+    mapping (string => Retailer) public retailerArr;
 
-    function createCode(string _code, string _brand, string _model, uint _status, string _description, string _manufactuerName, string _manufactuerLocation, string _manufactuerTimestamp) public payable returns (uint) {
-        codeObj newCode;
+    function createCode(
+        string memory _code,
+        string memory _brand,
+        string memory _model,
+        uint256 _status,
+        string memory _description,
+        string memory _manufacturerName,
+        string memory _manufacturerLocation,
+        string memory _manufacturerTimestamp
+    ) public returns (uint) {
+        Code memory newCode;
         newCode.brand = _brand;
         newCode.model = _model;
         newCode.status = _status;
         newCode.description = _description;
-        newCode.manufactuerName = _manufactuerName;
-        newCode.manufactuerLocation = _manufactuerLocation;
-        newCode.manufactuerTimestamp = _manufactuerTimestamp;
+        newCode.manufacturerName = _manufacturerName;
+        newCode.manufacturerLocation = _manufacturerLocation;
+        newCode.manufacturerTimestamp = _manufacturerTimestamp;
         codeArr[_code] = newCode;
         return 1;
     }
-    function getNotOwnedCodeDetails(string _code) public view returns (string, string, uint, string, string, string, string) {
-        return (codeArr[_code].brand, codeArr[_code].model, codeArr[_code].status, codeArr[_code].description, codeArr[_code].manufactuerName, codeArr[_code].manufactuerLocation, codeArr[_code].manufactuerTimestamp);
+
+    function getNotOwnedCodeDetails(string memory _code) public view returns (
+        string memory, string memory, uint256, string memory, string memory, string memory, string memory
+    ) {
+        Code memory code = codeArr[_code];
+        return (
+            code.brand, code.model, code.status, code.description,
+            code.manufacturerName, code.manufacturerLocation, code.manufacturerTimestamp
+        );
     }
-    function getOwnedCodeDetails(string _code) public view returns (string, string) {
-        return (retailerArr[codeArr[_code].retailer].name, retailerArr[codeArr[_code].retailer].location);
+
+    function getOwnedCodeDetails(string memory _code) public view returns (
+        string memory, string memory
+    ) {
+        Retailer memory retailer = retailerArr[codeArr[_code].retailer];
+        return (retailer.name, retailer.location);
     }
-    function addRetailerToCode(string _code, string _hashedEmailRetailer) public payable returns (uint) {
+
+    function addRetailerToCode(string memory _code, string memory _hashedEmailRetailer) public returns (uint) {
         codeArr[_code].retailer = _hashedEmailRetailer;
         return 1;
     }
-    function createCustomer(string _hashedEmail, string _name, string _phone) public payable returns (bool) {
+
+    function createCustomer(string memory _hashedEmail, string memory _name, string memory _phone) public returns (bool) {
         if (customerArr[_hashedEmail].isValue) {
             return false;
         }
-        customerObj newCustomer;
+        Customer memory newCustomer;
         newCustomer.name = _name;
         newCustomer.phone = _phone;
         newCustomer.isValue = true;
         customerArr[_hashedEmail] = newCustomer;
         return true;
     }
-    function getCustomerDetails(string _code) public view returns (string, string) {
-        return (customerArr[_code].name, customerArr[_code].phone);
-    }function createRetailer(string _hashedEmail, string _retailerName, string _retailerLocation) public payable returns (uint) {
-        retailerObj newRetailer;
+
+    function getCustomerDetails(string memory _code) public view returns (string memory, string memory) {
+        Customer memory customer = customerArr[_code];
+        return (customer.name, customer.phone);
+    }
+
+    function createRetailer(string memory _hashedEmail, string memory _retailerName, string memory _retailerLocation) public returns (uint) {
+        Retailer memory newRetailer;
         newRetailer.name = _retailerName;
         newRetailer.location = _retailerLocation;
         retailerArr[_hashedEmail] = newRetailer;
         return 1;
     }
-    function getRetailerDetails(string _code) public view returns (string, string) {
-        return (retailerArr[_code].name, retailerArr[_code].location);
+
+    function getRetailerDetails(string memory _code) public view returns (string memory, string memory) {
+        Retailer memory retailer = retailerArr[_code];
+        return (retailer.name, retailer.location);
     }
-    function reportStolen(string _code, string _customer) public payable returns (bool) {
-        uint i;
-        // Checking if the customer exists
+
+    function reportStolen(string memory _code, string memory _customer) public returns (bool) {
         if (customerArr[_customer].isValue) {
-            // Checking if the customer owns the product
-            for (i = 0; i < customerArr[_customer].code.length; i++) {
-                if (compareStrings(customerArr[_customer].code[i], _code)) {
-                    codeArr[_code].status = 2;        // Changing the status to stolen
-                }
-                return true;
-            }
-        }
-        return false;
-    }
-    function changeOwner(string _code, string _oldCustomer, string _newCustomer) public payable returns (bool) {
-        uint i;
-        bool flag = false;
-         //Creating objects for code,oldCustomer,newCustomer
-        codeObj memory product = codeArr[_code];
-        uint len_product_customer = product.customers.length;
-        customerObj memory oldCustomer = customerArr[_oldCustomer];
-        uint len_oldCustomer_code = customerArr[_oldCustomer].code.length;
-        customerObj memory newCustomer = customerArr[_newCustomer];
-
-        //Check if oldCustomer and newCustomer have an account
-        if (oldCustomer.isValue && newCustomer.isValue) {
-            //Check if oldCustomer is owner
-            for (i = 0; i < len_oldCustomer_code; i++) {
-                if (compareStrings(oldCustomer.code[i], _code)) {
-                    flag = true;
-                    break;
-                }
-            }
-
-            if (flag == true) {
-                //Swaping oldCustomer with newCustomer in product
-                for (i = 0; i < len_product_customer; i++) {
-                    if (compareStrings(product.customers[i], _oldCustomer)) {
-                        codeArr[_code].customers[i] = _newCustomer;
-                        break;
-                    }
-                }
-
-                // Removing product from oldCustomer
-                for (i = 0; i < len_oldCustomer_code; i++) {
-                    if (compareStrings(customerArr[_oldCustomer].code[i], _code)) {
-                        remove(i, customerArr[_oldCustomer].code);
-                        // Adding product to newCustomer
-                        uint len = customerArr[_newCustomer].code.length;
-                        if(len == 0){
-                            customerArr[_newCustomer].code.push(_code);
-                            customerArr[_newCustomer].code.push("hack");
-                        } else {
-                            customerArr[_newCustomer].code[len-1] = _code;
-                            customerArr[_newCustomer].code.push("hack");
-                        }
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-
-    function initialOwner(string _code, string _retailer, string _customer) public payable returns(bool) {
-            uint i;
-            if (compareStrings(codeArr[_code].retailer, _retailer)) {       // Check if retailer owns the prodct
-                if (customerArr[_customer].isValue) {                       // Check if Customer has an account
-                    codeArr[_code].customers.push(_customer);               // Adding customer in code
-                    codeArr[_code].status = 1;
-                    uint len = customerArr[_customer].code.length;
-                    if(len == 0) {
-                        customerArr[_customer].code.push(_code);
-                        customerArr[_customer].code.push("hack");
-                    } else {
-                    customerArr[_customer].code[len-1] = _code;
-                    customerArr[_customer].code.push("hack");
-                    }
+            for (uint256 i = 0; i < customerArr[_customer].codes.length; i++) {
+                if (compareStrings(customerArr[_customer].codes[i], _code)) {
+                    codeArr[_code].status = 2;
                     return true;
                 }
             }
-            return false;
         }
-
-    function getCodes(string _customer) public view returns(string[]) {
-        return customerArr[_customer].code;
+        return false;
     }
 
-    function compareStrings(string a, string b) internal returns (bool) {
-    	return keccak256(a) == keccak256(b);
+    function changeOwner(
+        string memory _code,
+        string memory _oldCustomer,
+        string memory _newCustomer
+    ) public returns (bool) {
+        Customer storage oldCustomer = customerArr[_oldCustomer];
+        Customer storage newCustomer = customerArr[_newCustomer];
+
+        if (oldCustomer.isValue && newCustomer.isValue) {
+            for (uint256 i = 0; i < oldCustomer.codes.length; i++) {
+                if (compareStrings(oldCustomer.codes[i], _code)) {
+                    // Update the customer's codes
+                    oldCustomer.codes[i] = newCustomer.codes[newCustomer.codes.length - 1];
+                    newCustomer.codes.pop();
+
+                    // Update code's customers
+                    Code storage code = codeArr[_code];
+                    for (uint256 j = 0; j < code.customers.length; j++) {
+                        if (compareStrings(code.customers[j], _oldCustomer)) {
+                            code.customers[j] = _newCustomer;
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
 
-    function remove(uint index, string[] storage array) internal returns(bool) {
-        if (index >= array.length)
-            return false;
+    function initialOwner(string memory _code, string memory _retailer, string memory _customer) public returns(bool) {
+        if (compareStrings(codeArr[_code].retailer, _retailer) && customerArr[_customer].isValue) {
+            codeArr[_code].customers.push(_customer);
+            codeArr[_code].status = 1;
 
-        for (uint i = index; i < array.length-1; i++) {
-            array[i] = array[i+1];
+            customerArr[_customer].codes.push(_code);
+            return true;
         }
-        delete array[array.length-1];
-        array.length--;
-        return true;
+        return false;
     }
 
-    function stringToBytes32(string memory source) internal returns (bytes32 result) {
-        bytes memory tempEmptyStringTest = bytes(source);
-        if (tempEmptyStringTest.length == 0) {
-            return 0x0;
-        }
-        assembly {
-            result := mload(add(source, 32))
-        }
+    function getCodes(string memory _customer) public view returns (string[] memory) {
+        return customerArr[_customer].codes;
+    }
+
+    function compareStrings(string memory a, string memory b) internal pure returns (bool) {
+        return keccak256(abi.encodePacked(a)) == keccak256(abi.encodePacked(b));
     }
 }
-
