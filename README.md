@@ -1,4 +1,4 @@
-# BlockScan
+# QRIntegrity
 
 
 <!-- [![Contributors][contributors-shield]][contributors-url]
@@ -13,22 +13,22 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/yashsrivastavv/BlockScan">
-    <img src="https://github.com/yashsrivastavv/BlockScan/blob/main/img/i1.jpg" alt="Logo" width="200" height="200">
+  <a href="https://github.com/yashsrivastavv/QRIntegrity ">
+    <img src="https://github.com/yashsrivastavv/QRIntegrity/blob/main/img/i1.jpg" alt="Logo" width="200" height="200">
   </a>
 
-  <h3 align="center">BlockScan</h3>
+  <h3 align="center">QRIntegrity</h3>
 
   <p align="center">
     <br />
-    <a href="https://github.com/yashsrivastavv/BlockScan"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/yashsrivastavv/QRIntegrity "><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/yashsrivastavv/BlockScan">View Demo</a>
+    <a href="https://github.com/yashsrivastavv/QRIntegrity ">View Demo</a>
     ·
-    <a href="https://github.com/yashsrivastavv/BlockScan/issues">Report Bug</a>
+    <a href="https://github.com/yashsrivastavv/QRIntegrity /issues">Report Bug</a>
     ·
-    <a href="https://github.com/yashsrivastavv/BlockScan/issues">Request Feature</a>
+    <a href="https://github.com/yashsrivastavv/QRIntegrity /issues">Request Feature</a>
   </p>
 </p>
 
@@ -91,7 +91,7 @@ To get a local copy up and running follow these simple steps.
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/yashsrivastavv/BlockScan
+   git clone https://github.com/yashsrivastavv/QRIntegrity
    ```
 2. Install requirements.txt 
    ```sh
