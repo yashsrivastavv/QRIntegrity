@@ -1,0 +1,107 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href="C:\Users\Thomas AJ\Desktop\node_try\style1.css" rel="stylesheet" type="text/css">
+
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
+
+
+
+    <link rel="icon" href="Favicon.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+    <title>AuthentiFi</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light navbar-laravel">
+    <div class="container">
+    <a class="navbar-brand" href="http://localhost:8080/"  style="color:#1fa667">AuthentiFi</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="http://localhost:8080" style="color:#1fa667">Generate QR Code</a>
+            </li>
+        </ul>
+
+    </div>
+    </div>
+</nav>
+
+<main class="myform">
+    <div  class="cotainer">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                    <div class="card">
+                        <div style="background-color: #1fa667;color: #ffffff"  class="card-header">Retailer Registration</div>
+                        <div class="card-body">
+                            <form name="myform" onsubmit="return validform()" action="http://localhost:8080/retailerSignup" method="POST" >
+                                <div class="form-group row">
+                                    <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="name" class="form-control" name="name">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="email" class="form-control" name="email">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="location" class="col-md-4 col-form-label text-md-right">Location</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="location" class="form-control" name="location">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+                                    <div class="col-md-6">
+                                        <input type="password" id="password" class="form-control" name="password">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="pass" class="col-md-4 col-form-label text-md-right">Confirm Password</label>
+                                    <div class="col-md-6">
+                                        <input type="password" id="pass" class="form-control" name="pass">
+                                    </div>
+                                </div>
+
+                                    <div class="col-md-6 offset-md-4">
+                                        <button type="submit" class="btn btn-primary">
+                                        Register
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</body>
+</html>
