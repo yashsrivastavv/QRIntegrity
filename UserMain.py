@@ -27,7 +27,7 @@ import pyzbar.pyzbar as pyzbar
 
 
 main = Tk()
-main.title("Fake Product Identificaion With QR-Code Using BlockChain")
+main.title("QRIntegrity -  Ensuring Integrity via Blockchain QR")
 main.attributes('-fullscreen', True)
 #main.geometry('1300x1200')
 
@@ -159,7 +159,7 @@ def authenticateProductWeb():
 
 main.wm_attributes('-transparentcolor', '#ab23ff')
 font = ('times', 30, 'bold')
-title = Label(main, text='Fake Product Identificaion With QR-Code Using BlockChain')
+title = Label(main, text='QRIntegrity -  Ensuring Integrity via Blockchain QR')
 title.config(bg='black', fg='white')  
 title.config(font=font)           
 title.config(height=3, width=50)       

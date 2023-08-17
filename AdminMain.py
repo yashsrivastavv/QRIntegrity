@@ -21,7 +21,7 @@ import threading
 
 
 main = tkinter.Tk()
-main.title("Fake Prodduct Identificaion With QR-Code Using BloackChain")
+main.title("QRIntegrity -  Ensuring Integrity via Blockchain QR")
 main.attributes('-fullscreen', True)
 #main.geometry('1300x1200')
 

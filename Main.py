@@ -27,7 +27,7 @@ main.geometry('1350x1200')
 main.attributes('-fullscreen', True)
 
 
-main.title("Fake Product Identificaion With QR-Code Using BlockChain")
+main.title("QRIntegrity -  Ensuring Integrity via Blockchain QR")
 
 video_file = "bg\\home.mp4"
 video = imageio.get_reader(video_file)
