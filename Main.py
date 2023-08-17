@@ -65,7 +65,7 @@ def quiti():
     
 main.wm_attributes('-transparentcolor', '#ab23ff')
 font = ('times', 30, 'bold')
-title = Label(main, text='Fake Product Identificaion With QR-Code Using BlockChain')
+title = Label(main, text='QRIntegrity -  Ensuring Integrity via Blockchain QR')
 title.config(bg='black', fg='white')  
 title.config(font=font)           
 title.config(height=3, width=50)       
