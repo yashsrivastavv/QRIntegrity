@@ -17,7 +17,7 @@ const secret_id = process.env.secret;
 const saltRounds = 10;
 
 // IP and port
-const IP = 'localhost';
+
 const port = process.env.PORT || 8080;
 
 // View engine
@@ -38,11 +38,12 @@ app.use(bodyParser.urlencoded({
 // }));
 
 // MySQL Connection
+// console.log(process.env);
 const connection = mysql.createConnection({
-    host: IP,
-    user: process.env.database_user,
-    password: process.env.database_password,
-    database: 'authentifi'
+    host: '127.0.0.1',
+    user: 'yash',
+    password: '123456',
+    database: 'reg1',
 });
 
 connection.connect(function(err) {
@@ -50,7 +51,9 @@ connection.connect(function(err) {
         console.log('Connected to MySql!\n');
     } else {
         console.log('Not connected to MySql.\n');
+
     }
+	console.log(err);
 });
 
 // Web3 connection
@@ -415,14 +418,14 @@ const abiArray = [
 	}
 ];
 
-const address = '';
+const address = '0xd9145CCE52D386f254917e481eB44e9943F39138';
 
-const contract = web3.eth.contract(abiArray);
+const contract = new web3.eth.Contract(abiArray, address);
 
-const contractInstance = contract.at(address);
+const contractInstance = contract.methods;
 web3.eth.defaultAccount = web3.eth.coinbase;
 
-// This function generates a QR code
+// This function generates a QR code[[]]
 function generateQRCode() {
     return crypto.randomBytes(20).toString('hex');
 }
@@ -500,7 +503,7 @@ app.post('/signUp', (req, res) => {
 
 // Add the user in Blockchain
 function createCustomer(hashedEmail, name, phone) {
-    return contractInstance.createCustomer(hashedEmail, name, phone, { from: web3.eth.accounts[0], gas: 3000000 });
+    return contractInstance.createCustomer(hashedEmail, name, phone);
 }
 
 
@@ -584,8 +587,8 @@ app.post('/retailerSignup', (req, res) => {
 
 // Add retailer to Blockchain
 function createRetailer(retailerHashedEmail, retailerName, retailerLocation) {
-    return contractInstance.createRetailer(retailerHashedEmail, retailerName, retailerLocation,
-                                        { from: web3.eth.accounts[0], gas: 3000000 });
+    return contractInstance.createRetailer(retailerHashedEmail, retailerName, retailerLocation
+                                        );
 }
 
 
@@ -764,7 +767,6 @@ app.post('/buy', (req, res) => {
     return res.status(400).send('Could not find QRCode');
 });
 
-
 /**
  * Description: Get product details
  * Request:     POST /getProductDetails
@@ -937,8 +939,10 @@ app.post('/QRCodeForManufacturer', (req, res) => {
     let salt = crypto.randomBytes(20).toString('hex');
     let code = hashMD5(brand + model + status + description + manufacturerName + manufacturerLocation + salt);
     let ok = contractInstance.createCode(code, brand, model, status, description, manufacturerName, manufacturerLocation,
-                                        manufacturerTimestamp, { from: web3.eth.accounts[0], gas: 3000000 });
+                                        manufacturerTimestamp);
+
     console.log(`Brand: ${brand} \n`);
+
     if (!ok) {
         return res.status(400).send('ERROR! QR Code for manufacturer could not be generated.');
     }

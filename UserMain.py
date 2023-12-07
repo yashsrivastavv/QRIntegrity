@@ -68,12 +68,6 @@ def authenticateProduct():
     for obj in decodedObjects:
         digital_signature_=obj.data
         digital_signature=digital_signature_.decode("utf-8")
-        
-    
-    #digital_signature=digital_signature_
-    #img=cv2.imread(filename)
-    #det=cv2.QRCodeDetector()
-    #digital_signature, pts, st_code=det.detectAndDecode(img)
     flag = True
     for i in range(len(blockchain.chain)):
         if i > 0:
@@ -193,7 +187,6 @@ scroll=Scrollbar(text)
 text.configure(yscrollcommand=scroll.set)
 text.place(x=300,y=450)
 text.config(font=font1)
-
 
 main.config(bg='cornflower blue')
 main.mainloop()

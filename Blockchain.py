@@ -37,6 +37,7 @@ class Blockchain:
             computed_hash = block.compute_hash()
 
         return computed_hash
+
 # THREE
     def add_block(self, block, proof): #adding data to block by computing new and previous hashes
         previous_hash = self.last_block.hash
@@ -65,7 +66,7 @@ class Blockchain:
     def addTransaction(self,trans_details): #add transaction
         self.translist.append(trans_details)
 
-    def mine(self):#mine 
+    def mine(self):
 
         if not self.unconfirmed_transactions:
             return False

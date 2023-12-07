@@ -64,7 +64,7 @@ class Register:
             messagebox.showerror("Error","passwords must match",parent=self.root)
         else:
             try:
-                con=mysql.connector.connect(host='localhost',user='root',password='yashsrivastava@75',database='reg1')
+                con=mysql.connector.connect(host='localhost',user='root',password='notgu3ssabl3',database='reg1')
                 cur=con.cursor()
                 # cur.execute("select * from reg1 where email=%s",self.txt_email.get())
                 # row=cur.fetchone()
@@ -86,8 +86,6 @@ class Register:
                 self.root.destroy()
             except Exception as es:
                 messagebox.showerror("Error",f"Error due to :{str(es)}",parent=self.root)
-        
-            
         
         
 root=Tk()
