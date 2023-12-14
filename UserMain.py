@@ -61,8 +61,7 @@ def authenticateProduct():
     text.delete('1.0', END)
     filename_ = askopenfilename(initialdir = "original_barcodes")
     
-    #qr=qrtools.QR()
-    #qr.decode(filename_)
+    
     image = cv2.imread(filename_)
     decodedObjects = pyzbar.decode(image)
     for obj in decodedObjects:
@@ -124,7 +123,6 @@ def authenticateProductWeb():
             b = blockchain.chain[i]
             data = b.transactions[0]
             arr = data.split("#")
-            #global digital_signature
             if arr[5] == digital_signature:
                 output = ''
                 text.insert(END,"Uploaded Product Barcode Authentication Successfull\n")
@@ -143,7 +141,7 @@ def authenticateProductWeb():
                 f = open("output.html", "w")
                 f.write(output)
                 f.close()
-                webbrowser.open("output.html",new=1)
+                # webbrowser.open("output.html",new=1)
                 flag = False
                 break
     if flag:
@@ -169,10 +167,9 @@ font1 = ('times', 13, 'bold')
 def run12():
     main.destroy()
     import Main
-    #os.system('AdminMain.py',)
     
 
-scanButton = Button(main, text="Home Page",bg="dark orange", command=run12)
+scanButton = Button(main, text="Home Page", bg="dark orange", command = run12)
 scanButton.place(x=1400,y=200)
 scanButton.config(font=font1)
 
