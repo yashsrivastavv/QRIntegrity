@@ -33,7 +33,7 @@ main.attributes('-fullscreen', True)
 
 
 
-video_name = "bg\\home.mp4" #This is your video file path
+video_name = "bg\\home.mp4" 
 video = imageio.get_reader(video_name)
 
 def stream(label):
@@ -105,9 +105,13 @@ def authenticateProductWeb():
     while True:
         _, frame = cap.read()
         decodedObjects = pyzbar.decode(frame)
+        digital_signature = None
         for obj in decodedObjects:
             digital_signature_=obj.data
             digital_signature=digital_signature_.decode("utf-8")
+            print(digital_signature)
+            break
+        if(digital_signature):
             break
         cv2.imshow("QR-Code scanner", frame)
         if cv2.waitKey(1) == ord("q"):

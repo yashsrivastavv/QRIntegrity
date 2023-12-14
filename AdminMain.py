@@ -61,6 +61,7 @@ def addProduct():
     name = tf2.get()
     user = tf3.get()
     address = tf4.get()
+    currentowner = tf5.get()
     neeraj=hex(random.getrandbits(128))
     bytes=neeraj.encode('utf-8')
     digital_signature = sha256(bytes).hexdigest();
@@ -69,7 +70,7 @@ def addProduct():
     logo = Image.open('bg\\logo.jpg')
     basewidth = 100
     wpercent = (basewidth/float(logo.size[0]))
-    hsize = int((float(logo.size[1])*float(wpercent)))
+    hsize = int((float(logo.size[1]) * float(wpercent)))
     logo = logo.resize((basewidth, hsize), Image.ANTIALIAS)
     QRcode = qrcode.QRCode(error_correction=qrcode.constants.ERROR_CORRECT_H)
     QRcode.add_data(digital_signature)
@@ -166,9 +167,6 @@ def searchProduct():
                     break
     if flag:
         text.insert(END,"Given product id does not exists")
-        
-    
-    
 
 
 
@@ -178,7 +176,10 @@ def searchProduct():
 
 
 
-    
+
+
+
+
 
 main.wm_attributes('-transparentcolor', '#ab23ff')
 font = ('times', 30, 'bold')
@@ -222,6 +223,14 @@ tf4 = Entry(main,width=80)
 tf4.config(font=font1)
 tf4.place(x=470,y=350)
 
+l5 = Label(main, text='Current Owner :')
+l5.config(font=font1)
+l5.place(x=280,y=400)
+
+tf5 = Entry(main,width=80)
+tf5.config(font=font1)
+tf5.place(x=470,y=400)
+
 def run13():
     main.destroy()
     import Main
@@ -234,11 +243,11 @@ scanButton.place(x=1400,y=200)
 scanButton.config(font=font1)
 
 saveButton = Button(main, text="Save Product with Blockchain Entry", command=addProduct)
-saveButton.place(x=420,y=400)
+saveButton.place(x=420,y=450)
 saveButton.config(font=font1)
 
 searchButton = Button(main, text="Retrieve Product Data", command=searchProduct)
-searchButton.place(x=850,y=400)
+searchButton.place(x=850,y=450)
 searchButton.config(font=font1)
 
 
@@ -246,7 +255,7 @@ font1 = ('times', 13, 'bold')
 text=Text(main,height=15,width=100)
 scroll=Scrollbar(text)
 text.configure(yscrollcommand=scroll.set)
-text.place(x=400,y=450)
+text.place(x=400,y=500)
 text.config(font=font1)
 
 main.config(bg='cornflower blue')

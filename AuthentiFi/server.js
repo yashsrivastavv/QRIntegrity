@@ -313,6 +313,7 @@ const abiArray = [
 		"stateMutability": "view",
 		"type": "function"
 	},
+	
 	{
 		"constant": true,
 		"inputs": [
@@ -460,12 +461,7 @@ app.get('/', (req, res) => {
 });
 
 
-/**
- * Description: Adds a user to the database and to the blockchain
- * Request:     POST /signUp
- * Send:        JSON object which contains name, email, password, phone
- * Receive:     200 if successful, 400 otherwise
- */
+
 app.post('/signUp', (req, res) => {
     console.log('Request to /signUp\n');
     let name = req.body.name;
@@ -561,7 +557,8 @@ app.post('/retailerSignup', (req, res) => {
     // Adding the retailer in MySQL
     connection.query('SELECT * FROM RETAILER WHERE retailerEmail = ? LIMIT 1', [retailerEmail], (error, results) => {
         if (error) {
-            callback(error);
+            // callback(error);
+			console.log(error);
             return res.status(400).send('Some SQL Error');
         }
         if (results.length) {

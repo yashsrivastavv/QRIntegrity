@@ -33,8 +33,8 @@ class Login:
         
     def register_window(self):
         import register
-        
-        
+
+
     def login(self):
         if self.txt_email.get()=="" or self.txt_password.get()=="":
             messagebox.showerror("Error","All fields are required",parent=self.root)
@@ -56,9 +56,7 @@ class Login:
                 con.close()
             except Exception as es:
                 messagebox.showerror("Error",f"Error due to :{str(es)}",parent=self.root)
-        
-        
-      
+
 root=Tk()
 obj=Login(root)
 root.mainloop()

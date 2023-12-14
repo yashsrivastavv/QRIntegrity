@@ -8,8 +8,7 @@ import base64
 from Block import *
 
 class Blockchain:
-    # difficulty of our PoW algorithm
-    difficulty = 2 #using difficulty 2 computation
+    difficulty = 2
 # FIRST
     def __init__(self):
         self.unconfirmed_transactions = []
@@ -87,6 +86,3 @@ class Blockchain:
     def save_object(self,obj, filename):
         with open(filename, 'wb') as output:
             pickle.dump(obj, output, pickle.HIGHEST_PROTOCOL)
-
-
-    
