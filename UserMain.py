@@ -23,6 +23,7 @@ import qrtools
 from PIL import Image
 #from pyzbar.pyzbar import decode
 import pyzbar.pyzbar as pyzbar
+import mysql.connector
 
 
 
@@ -60,9 +61,6 @@ if os.path.exists('blockchain_contract.txt'):
 def authenticateProduct():
     text.delete('1.0', END)
     filename_ = askopenfilename(initialdir = "original_barcodes")
-    
-    #qr=qrtools.QR()
-    #qr.decode(filename_)
     image = cv2.imread(filename_)
     decodedObjects = pyzbar.decode(image)
     for obj in decodedObjects:
@@ -74,7 +72,20 @@ def authenticateProduct():
             b = blockchain.chain[i]
             data = b.transactions[0]
             arr = data.split("#")
+
             if arr[5] == digital_signature:
+                mydb = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                password="Kunnu_Mad1",
+                database="authentifi"
+                )
+                mycursor = mydb.cursor()
+                print(arr[0] + " here is the ")
+                mycursor.execute("SELECT curr_owner FROM owners where pid = %s", [arr[0]])
+
+                myresult = mycursor.fetchall()
+                print(myresult[0][0])
                 output = ''
                 text.insert(END,"Uploaded Product Barcode Authentication Successfull\n")
                 text.insert(END,"Details extracted from Blockchain after Validation\n\n")
@@ -84,6 +95,8 @@ def authenticateProduct():
                 text.insert(END,"Address Details                            : "+arr[3]+"\n")
                 text.insert(END,"Product registered Date & Time             : "+arr[4]+"\n")
                 text.insert(END,"Product QR-Code                            : "+str(digital_signature)+"\n")
+                text.insert(END,"Current Owner the product                  : " + str(myresult[0][0]))
+
 
                 output='<html><body><table border=1>'
                 output += '<tr><th>Block No</th><th>Product ID</th><th>Product Name</th><th>Company/User Details</th><th>Address Details</th><th>Scan Date & Time</th><th>Product QR-Code No</th></tr>'

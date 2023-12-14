@@ -19,7 +19,6 @@ import PIL.Image
 import imageio
 import threading
 
-
 main = Tk()
 
 main.geometry('1350x1200')
