@@ -18,6 +18,7 @@ from PIL import ImageTk, Image
 import PIL.Image
 import imageio
 import threading
+import mysql
 
 
 main = tkinter.Tk()
@@ -62,6 +63,15 @@ def addProduct():
     user = tf3.get()
     address = tf4.get()
     currentowner = tf5.get()
+    con=mysql.connector.connect(host="localhost",user="root",password="notgu3ssabl3",database="reg1")
+    cur=con.cursor()
+    cur.execute("insert into curr_owner (pid, owner) values(%s,%s)",
+                (
+                    pid,
+                    currentowner
+                ))
+    con.commit()
+    con.close()
     neeraj=hex(random.getrandbits(128))
     bytes=neeraj.encode('utf-8')
     digital_signature = sha256(bytes).hexdigest();
