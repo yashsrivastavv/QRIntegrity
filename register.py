@@ -66,11 +66,6 @@ class Register:
             try:
                 con=mysql.connector.connect(host='localhost',user='root',password='Kunnu_Mad1',database='authentifi')
                 cur=con.cursor()
-                # cur.execute("select * from reg1 where email=%s",self.txt_email.get())
-                # row=cur.fetchone()
-                # print(row)
-                # if row!=None:
-                #     messagebox.showerror("Error","user already exists,try with another email",parent=self.root)
                 cur.execute("insert into reg1(fname,Lname,contact,email,password,cpass) values(%s,%s,%s,%s,%s,%s)",
                             (self.txt_fname.get(),
                              self.txt_Lname.get(),
