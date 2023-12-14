@@ -124,9 +124,11 @@ def changeowner():
         database="reg1"
         )
         mycursor = mydb.cursor()
-        mycursor.execute("update curr_owner set owner = %s where pid = %s;", (str(tf2.get()), ifQRSCANNED[-1]))
-        myresult = mycursor.fetchall()
-        print(type(ifQRSCANNED[-1]))
+        mycursor.execute("update curr_owner set owner = %s where pid = %s;", (tf2.get(), ifQRSCANNED[-1]))
+        # myresult = mycursor.fetchall()
+        # print(myresult)
+        mydb.commit()
+        mydb.close()
         text.insert(END, "New owner of this product is :" + str(tf2.get()))
 
 def authenticateProductWeb():
