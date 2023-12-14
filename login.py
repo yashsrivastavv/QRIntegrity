@@ -3,7 +3,6 @@ from tkinter import ttk,messagebox
 from PIL import Image,ImageTk 
 import mysql.connector
 
-
 class Login:
     
     def __init__(self,root):
