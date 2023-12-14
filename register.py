@@ -64,7 +64,7 @@ class Register:
             messagebox.showerror("Error","passwords must match",parent=self.root)
         else:
             try:
-                con=mysql.connector.connect(host='localhost',user='root',password='Kunnu_Mad1',database='authentifi')
+                con=mysql.connector.connect(host='localhost',user='root',password='notgu3ssabl3',database='reg1')
                 cur=con.cursor()
                 cur.execute("insert into reg1(fname,Lname,contact,email,password,cpass) values(%s,%s,%s,%s,%s,%s)",
                             (self.txt_fname.get(),
