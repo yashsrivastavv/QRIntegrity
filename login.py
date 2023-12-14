@@ -40,7 +40,8 @@ class Login:
             messagebox.showerror("Error","All fields are required",parent=self.root)
         else:
             try:
-                con=mysql.connector.connect(host="localhost",user="root",password="notgu3ssabl3",database="reg1")
+                
+                con=mysql.connector.connect(host="localhost",user="root",password="yashsrivastava@75",database="reg1")
                 cur=con.cursor()
                 cur.execute("select *from reg1 where email=%s and password=%s",(self.txt_email.get(),self.txt_password.get()))
                 row=cur.fetchone()
