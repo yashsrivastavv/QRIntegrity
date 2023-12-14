@@ -25,15 +25,12 @@ from PIL import Image
 import pyzbar.pyzbar as pyzbar
 import mysql.connector
 
-
-
 main = Tk()
 main.title("QRIntegrity -  Ensuring Integrity via Blockchain QR")
 main.attributes('-fullscreen', True)
 #main.geometry('1300x1200')
 
-
-
+ifQRSCANNED=[]
 video_name = "bg\\home.mp4" 
 video = imageio.get_reader(video_name)
 
@@ -75,7 +72,8 @@ def authenticateProduct():
             b = blockchain.chain[i]
             data = b.transactions[0]
             arr = data.split("#")
-
+            ifQRSCANNED.append(arr[0])
+            # print(ifQRSCANNED + "yeh hai")
             if arr[5] == digital_signature:
                 mydb = mysql.connector.connect(
                 host="localhost",
@@ -86,9 +84,7 @@ def authenticateProduct():
                 mycursor = mydb.cursor()
                 print(arr[0] + " here is the ")
                 mycursor.execute("SELECT owner FROM curr_owner where pid = %s", [arr[0]])
-
                 myresult = mycursor.fetchall()
-                print(myresult[0][0])
                 output = ''
                 text.insert(END,"Uploaded Product Barcode Authentication Successfull\n")
                 text.insert(END,"Details extracted from Blockchain after Validation\n\n")
@@ -107,13 +103,31 @@ def authenticateProduct():
                 f = open("output.html", "w")
                 f.write(output)
                 f.close()
-                webbrowser.open("output.html",new=1)
+                # webbrowser.open("output.html",new=1)
                 flag = False
                 break
     if flag:
         text.insert(END,str(digital_signature)+", This Product is Fake \n")
         text.insert(END,"Uploaded Product Barcode Authentication Failed")
-
+# UPDATE table_name
+# SET column1 = value1, column2 = value2, ...
+# WHERE condition;
+def changeowner():
+    text.delete('1.0', END)
+    if(len(ifQRSCANNED)==0):
+        text.insert(END, "NO QR SCANNED")
+    else:
+        mydb = mysql.connector.connect(
+        host="localhost",
+        user="yash",
+        password="123456",
+        database="reg1"
+        )
+        mycursor = mydb.cursor()
+        mycursor.execute("update curr_owner set owner = %s where pid = %s;", (str(tf2.get()), ifQRSCANNED[-1]))
+        myresult = mycursor.fetchall()
+        print(type(ifQRSCANNED[-1]))
+        text.insert(END, "New owner of this product is :" + str(tf2.get()))
 
 def authenticateProductWeb():
     text.delete('1.0', END)
@@ -141,6 +155,18 @@ def authenticateProductWeb():
             data = b.transactions[0]
             arr = data.split("#")
             if arr[5] == digital_signature:
+                mydb = mysql.connector.connect(
+                host="localhost",
+                user="yash",
+                password="123456",
+                database="reg1"
+                )
+                mycursor = mydb.cursor()
+                print(arr[0] + " here is the ")
+                mycursor.execute("SELECT owner FROM curr_owner where pid = %s", [arr[0]])
+
+                myresult = mycursor.fetchall()
+                print(myresult[0][0])
                 output = ''
                 text.insert(END,"Uploaded Product Barcode Authentication Successfull\n")
                 text.insert(END,"Details extracted from Blockchain after Validation\n\n")
@@ -151,7 +177,7 @@ def authenticateProductWeb():
                 text.insert(END,"Scan Date & Time             : "+arr[4]+"\n")
                 #text.insert(END,"Product Qr code              : "+str(bytes) +"\n")
                 text.insert(END,"Product QR-Code              : "+str(digital_signature)+"\n")
-
+                text.insert(END,"Current Owner                : "+ str(myresult[0][0]))
                 output='<html><body><table border=1>'
                 output += '<tr><th>Block No</th><th>Product ID</th><th>Product Name</th><th>Company/User Details</th><th>Address Details</th><th>Scan Date & Time</th><th>Product digital Signature</th></tr>'
                 output+='<tr><td>'+str(i)+'</td><td>'+arr[0]+'</td><td>'+arr[1]+'</td><td>'+arr[2]+'</td><td>'+arr[3]+'</td><td>'+arr[4]+'</td><td>'+str(digital_signature)+'</td></tr>'
@@ -194,6 +220,13 @@ scanButton = Button(main, text="Authenticate Scan", command=authenticateProduct)
 scanButton.place(x=420,y=300)
 scanButton.config(font=font1)
 
+scanButton = Button(main, text="Change Owner",bg="blue", command=changeowner)
+scanButton.place(x=1400,y=500)
+scanButton.config(font=font1)
+
+tf2 = Entry(main,width=30)
+tf2.config(font=font1)
+tf2.place(x=1530,y=504)
 
 scanButton = Button(main, text="Authenticate web Scan", command=authenticateProductWeb)
 scanButton.place(x=850,y=300)
@@ -208,3 +241,8 @@ text.config(font=font1)
 
 main.config(bg='cornflower blue')
 main.mainloop()
+
+
+if __name__ == "__main__":
+    app.run(host="127.0.0.1", port=8080, debug=True)
+    

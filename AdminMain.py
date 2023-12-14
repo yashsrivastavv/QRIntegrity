@@ -92,7 +92,7 @@ def addProduct():
     QRimg.save('original_barcodes'+'\\'+str(pid)+'productQR.png')
  
     
-    
+
     
     if len(pid) > 0 and len(name) > 0 and len(user) > 0 and len(address) > 0:
         current_time = datetime.datetime.now() 
@@ -151,7 +151,7 @@ def searchProduct():
                     QRimg.save('original_barcodes'+'\\'+str(pid)+'productQR.png')
                     output = ''
                     text.insert(END,"Product Details extracted from Blockchain using Product ID : "+pid+"\n\n")
-                    text.insert(END,"Product ID                                         : "+arr[0]+"\n")
+                    text.insert(END,"Product ID                                 : "+arr[0]+"\n")
                     text.insert(END,"Product Name                               : "+arr[1]+"\n")
                     text.insert(END,"Company/User Details                       : "+arr[2]+"\n")
                     text.insert(END,"Address Details                            : "+arr[3]+"\n")
@@ -173,8 +173,6 @@ def searchProduct():
                     img = Label(main, image=render)
                     img.place(x=140, y=500)
                     #messagebox.showinfo("", "Retrieve product QR-code!")
-
-
                     break
     if flag:
         text.insert(END,"Given product id does not exists")
