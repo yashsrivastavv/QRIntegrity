@@ -79,13 +79,13 @@ def authenticateProduct():
             if arr[5] == digital_signature:
                 mydb = mysql.connector.connect(
                 host="localhost",
-                user="root",
-                password="Kunnu_Mad1",
-                database="authentifi"
+                user="yash",
+                password="123456",
+                database="reg1"
                 )
                 mycursor = mydb.cursor()
                 print(arr[0] + " here is the ")
-                mycursor.execute("SELECT curr_owner FROM owners where pid = %s", [arr[0]])
+                mycursor.execute("SELECT owner FROM curr_owner where pid = %s", [arr[0]])
 
                 myresult = mycursor.fetchall()
                 print(myresult[0][0])
