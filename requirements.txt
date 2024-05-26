@@ -1,0 +1,9 @@
+distributed==2024.5.1
+imageio==2.33.0
+numpy==1.26.4
+opencv_python==4.8.1.78
+Pillow==9.5.0
+Pillow==10.3.0
+pyzbar==0.1.9
+qrcode==7.4.2
+qrtools==0.0.2
